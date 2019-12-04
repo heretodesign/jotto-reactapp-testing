@@ -1,11 +1,12 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
-import EnzymeAdapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 
 import Congrats from './Congrats';
-import { findByTestAttr } from '../test/testUtils'
+import { findByTestAttr, checkProps } from '../test/testUtils'
 
-Enzyme.configure({ adapter: new EnzymeAdapter() });
+
+
+const defaultProps = { success: false };
 
 /**
  * Functional react component for congradulatory message.
@@ -15,11 +16,12 @@ Enzyme.configure({ adapter: new EnzymeAdapter() });
  * 
  */
 const setup = (props ={}) => {
-    return shallow(<Congrats {...props} />)
+    const setupProps = { ...defaultProps, ...props };
+    return shallow(<Congrats {...setupProps} />)
 }
 
 it('renders without error', () => {
-    const wrapper = setup(); 
+    const wrapper = setup({ success: false }); 
     const component = findByTestAttr(wrapper, 'component-congrats');
     expect(component.length).toBe(1);
 }); 
@@ -36,3 +38,7 @@ it('renders non-empty congrats message when `success` prop is true', () => {
     expect(message.text().length).not.toBe(0);
 }); 
   
+it('does not throw warning with the expected props', () => {
+    const expectedProps = { success: false }; 
+    checkProps(Congrats, expectedProps);
+}); 

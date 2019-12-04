@@ -1,3 +1,4 @@
+import checkPropTypes from 'check-prop-types'
 
 /**
  * Returns ShallowWrapper containing nodes(s) with the given data-test value.
@@ -8,4 +9,14 @@
 
 export const findByTestAttr = (wrapper, val) => {
     return wrapper.find(`[data-test="${val}"]`);
+}
+
+export const checkProps = (component, conformingProps) => {
+    const propError = checkPropTypes(
+        component.propTypes,
+        conformingProps,
+        'props',
+        component.name
+    );
+    expect(propError).toBeUndefined();
 }
