@@ -22,8 +22,8 @@ import { workerData } from 'worker_threads';
         contents = (
             <div data-test="guessed-words">
                 <h3>Guess Words</h3>
-                <table>
-                    <thead>
+                <table className="table table-sm">
+                    <thead className="thead-light">
                         <li>
                             <th>Guess</th>
                             <th>Matching Letters</th>
